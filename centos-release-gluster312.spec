@@ -1,6 +1,6 @@
 Summary: Gluster 3.12 (Long Term Stable) packages from the CentOS Storage SIG repository
 Name: centos-release-gluster312
-Version: 0.9
+Version: 1.0
 Release: 1%{?dist}
 License: GPLv2
 URL: http://wiki.centos.org/SpecialInterestGroup/Storage
@@ -32,5 +32,8 @@ install -D -m 644 %{SOURCE0} %{buildroot}%{_sysconfdir}/yum.repos.d/CentOS-Glust
 %config(noreplace) %{_sysconfdir}/yum.repos.d/CentOS-Gluster-3.12.repo
 
 %changelog
+* Wed Aug 30 2017 Niels de Vos <ndevos@redhat.com> - 1.0-1
+- Enable release repository, disable testing
+
 * Sat Aug 12 2017 Niels de Vos <ndevos@redhat.com> - 0.9-1
 - Initial version based on centos-release-gluster310
