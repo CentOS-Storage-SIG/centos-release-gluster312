@@ -1,13 +1,17 @@
 Summary: Gluster 3.12 (Long Term Stable) packages from the CentOS Storage SIG repository
 Name: centos-release-gluster312
 Version: 1.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPLv2
 URL: http://wiki.centos.org/SpecialInterestGroup/Storage
 Source0: CentOS-Gluster-3.12.repo
 
 BuildArch: noarch
 
+%if 0%{?centos} >= 7
+# $contentdir for altarch support was added with CentOS-7.5
+Requires: centos-release >= 7-5.1804.el7.centos.2
+%endif
 # This provides the public key to verify the RPMs
 Requires: centos-release-storage-common
 
@@ -26,12 +30,18 @@ release schedule, see https://www.gluster.org/community/release-schedule
 
 %install
 install -D -m 644 %{SOURCE0} %{buildroot}%{_sysconfdir}/yum.repos.d/CentOS-Gluster-3.12.repo
+%if 0%{?centos} < 7
+sed -i 's/i\$contentdir/centos/g' %{buildroot}%{_sysconfdir}/yum.repos.d/CentOS-Gluster-3.12.repo
+%endif
 
 %files
 %defattr(-,root,root)
 %config(noreplace) %{_sysconfdir}/yum.repos.d/CentOS-Gluster-3.12.repo
 
 %changelog
+* Tue Jul 31 2018 Niels de Vos <ndevos@redhat.com> - 1.0-2
+- Add support for altarch repositories
+
 * Wed Aug 30 2017 Niels de Vos <ndevos@redhat.com> - 1.0-1
 - Enable release repository, disable testing
 
